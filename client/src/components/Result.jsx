@@ -13,21 +13,23 @@ const Result = () => {
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState("");
 
+    console.log(data)
 
 
     const handleFilterData = async (value) => {
         let filterData;
 
-        if (value === "Active") {
-            filterData = data.filter((user) => user?.status === "Active");
-        } else if (value === "InActive") {
-            filterData = data.filter((user) => user?.status === "InActive");
-        } else if (value === "User") {
-            filterData = data.filter((user) => user?.role === "User");
-        } else if (value === "Admin") {
-            filterData = data.filter((user) => user?.role === "Admin");
-        } else if (value === "CreatedAt") {
-            filterData = [...data].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        if (value === "all") {
+            filterData = data.filter((user) => user?.category === "all");
+        } else if (value === "traval") {
+            filterData = data.filter((user) => user?.category === "traval");
+        } else if (value === "technology") {
+            filterData = data.filter((user) => user?.category === "technology");
+        } else if (value === "Food") {
+            filterData = data.filter((user) => user?.category === "Food");
+        } else if (value === "Fashion") {
+            // filterData = [...data].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            filterData = data.filter((user) => user?.category === "Fashion");
         }
 
         setData(filterData || data);
@@ -35,8 +37,10 @@ const Result = () => {
 
     const fetchAllBlogs = async () => {
         try {
-            const res = await axios.get(`${backend_url}/blog/all`, { withCredentials: true })
-            setData(res?.data?.data);
+            const res = await axios.get(`${backend_url}/blog/all`, { withCredentials: true });
+            if (res.data.success) {
+                setData(res?.data?.data)
+            }
         } catch (error) {
             toast.error(error?.response?.data?.message)
         }
@@ -57,7 +61,7 @@ const Result = () => {
     }
 
     useEffect(() => {
-        // fetchAllUsers();
+        fetchAllBlogs();
     }, []);
 
 
@@ -77,11 +81,18 @@ const Result = () => {
                     </div>
 
                     <div className="flex items-center gap-5">
-                        <select className="px-6 bg-green-700 text-white py-1 rounded-md">
-                            <option value="">Filter</option>
+                        <select onChange={(e) => handleFilterData(e.target.value)} className="px-6 bg-green-50 border py-1 font-semibold text-slate-500 rounded-md">
+                            <option disabled value="" className="bg-slate-300">Filter</option>
+                            <option value="all">All</option>
+                            <option value="traval">Traval</option>
+                            <option value="technology">Technology</option>
+                            <option value="food">Food</option>
+                            <option value="fashion">Fashion</option>
                         </select>
-                        <select className="bg-blue-600 px-6 py-1 text-white rounded-md">
-                            <option className="bg-green-200" value="">Sort</option>
+                        <select className="bg-blue-50 px-6 py-1 text-slate-600 font-semibold rounded-md">
+                            <option disabled className="bg-slate-300" value="">Sort</option>
+                            <option value="traval">Ascending  </option>
+                            <option value="technology">Descending </option>
                         </select>
                     </div>
                 </div>
@@ -90,14 +101,14 @@ const Result = () => {
 
             </div>
 
-           <div className="w-[90%] grid grid-cols-3 gap-1 mt-4">
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
-           </div>
+            <div className="w-[90%] grid grid-cols-3 gap-y-8 gap-1 mt-4">
+
+                {
+                    data?.map((item, index) => (
+                        <BlogCard data={item} key={index} />
+                    ))
+                }
+            </div>
 
 
         </div>

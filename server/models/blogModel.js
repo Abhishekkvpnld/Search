@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const blogSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -8,6 +7,11 @@ const blogSchema = new mongoose.Schema({
     trim: true,
   },
   title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  category: {
     type: String,
     required: true,
     trim: true,

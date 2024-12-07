@@ -5,21 +5,21 @@ import { CiMenuKebab } from "react-icons/ci"; import { IoShareSocialOutline } fr
 
 
 
-const BlogCard = () => {
+const BlogCard = ({ data }) => {
     return (
-        <div className="w-[300px] bg-orange-200 flex flex-col justify-start rounded-md hover:shadow-lg">
-            <img src="" alt="img" className="object-cover h-[100px] rounded-md" />
+        <div className="w-[300px] bg-slate-50 border flex flex-col justify-start rounded-md hover:shadow-lg">
+            <img src={data?.blogImg} alt="img" className="object-cover min-h-[100px]  max-h-[100px] rounded-md" />
 
             <div className="flex flex-col justify-start p-2">
-                <h1 className="line-clamp-2 font-semibold leading-4 mb-2">title Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, adipisicing elit. At, sunt, cum consequatur ea quidem inventore laudantium facilis delectus, deleniti eum quibusdam facere. Architecto voluptatibus quod quibusdam quis, modi est mollitia.20</h1>
-                <p className="line-clamp-2 text-xs leading-3">description Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero magnam vitae consequatur iure alias neque eius fugit odit itaque quo.</p>
+                <h1 className="line-clamp-2 font-semibold leading-4 mb-2">{data?.title}</h1>
+                <p className="line-clamp-2 text-xs leading-3">{data?.description}</p>
             </div>
 
             <div className="flex w-full items-center justify-between px-3 mb-2">
 
                 <div className="flex items-center gap-2">
-                    <img src="/avatar.png" className="w-8 h-8 rounded-full" alt="profile" />
-                    <p className="font-medium text-sm text-slate-500">username</p>
+                    <img src={data?.profileImg} className="w-8 h-8 rounded-full" alt="profile" />
+                    <p className="font-medium text-sm text-slate-500">{data?.username}</p>
                 </div>
 
                 <div className="flex items-center justify-center gap-3 p-1 mt-2 mb-2 ">
