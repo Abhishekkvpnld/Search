@@ -1,9 +1,18 @@
-
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Search from "./pages/Search";
 
 
 const App = () => {
+
+
   return (
-    <div>App</div>
+    <Router>
+      <Routes>
+        <Route element={<Search />} path="/" />
+      </Routes>
+      <Toaster />
+    </Router>
   )
 }
 
