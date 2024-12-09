@@ -54,14 +54,14 @@ export const search = async (req, res) => {
     const { content } = req.query;
 
     if (!content) {
-      throw new Error("Please enter a username to search...");
+      throw new Error("Please enter a content to search...");
     }
 
 
     const regExp = new RegExp(content, "i");
     const allDoc = await Blog.find({
       $or: [
-        { userName: { $regex: regExp } },
+        { username: { $regex: regExp } },
         { title: { $regex: regExp } },
         { description: { $regex: regExp } }
       ]
@@ -89,4 +89,4 @@ export const search = async (req, res) => {
       message: error.message,
     });
   }
-};
+};   

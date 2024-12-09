@@ -14,7 +14,6 @@ const Result = () => {
     const [searchData, setSearchData] = useState("");
 
 
-
     const handleSortData = async (value) => {
         let sortedData;
 
@@ -29,9 +28,8 @@ const Result = () => {
     const fetchAllBlogs = async () => {
         try {
             const res = await axios.get(`${backend_url}/blog/all`, { withCredentials: true });
-            if (res.data.success) {
-                setData(res?.data?.data)
-            }
+                setData(res?.data?.data || [])
+            
         } catch (error) {
             toast.error(error?.response?.data?.message)
         }
